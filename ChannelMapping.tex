@@ -1,0 +1,36 @@
+\documentclass[a4paper]{article}
+\usepackage{graphicx}
+\usepackage[default]{gfsdidot}
+%\usepackage[T1]{fontenc}
+
+
+\begin{document}
+\title{ There and Back Again: Tracker channel mapping from fibre to VLSB}
+\author{D. Adey and A. Dobbs}
+\maketitle
+
+\section*{Positions of the scintillating fibres}
+\section*{Internal waveguides}
+\section*{External waveguides}
+\section*{VLPC Cassette}
+\section*{TriPt and DFPGA firmware numbering}
+\section*{VLSB Bank}
+
+
+Once the DFPGA as assinged a channel number ranging from 0-127, the data is transferred in a one-to-one mapping from each DFPGA, via an LVDS cable, to one of the four memory banks in a VLSB, where there is also a one-to-one mapping of AFEs to VLSBs. For each board, the four groups of 128 channels are distinguished by the bank in which there are recorded. Each board for a single tracker is distinguished by the unique VME address (and GEO ID within DATE) of the VLSB. The tracker are distinguised by which VME crate they are connected to, indentified by the PC (or LDC) which has the connection to it.
+
+Thus, the channel number within a group of 128 for a single DFPGA/Bank is found as:
+
+0xXXXXXXXX >> 16 \& 0x8F
+
+which is to say, the channel is encoded into the 15-23 bits of the data word. The bank/DFPGA and board are identified by their VME address, as:
+
+0xBXXDXXXX
+
+where B is the board and D the bank/DFPGA.
+\section*{Software treatment}
+\begin{thebibliography}{9}
+\bibitem{readout} D.Adey, The MICE Tracker Readout and Data acquisition systems, MICE Note XXXX 2014
+\end{thebibliography}
+
+\end{document}
